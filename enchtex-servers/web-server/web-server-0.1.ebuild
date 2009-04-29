@@ -72,8 +72,8 @@ src_install() {
 
 	if use mysql ; then
 		insinto /root/cron-scripts
-		doins ${MYDIR}/root/cron-scripts/automysqlbackup.cron
-		doins ${MYDIR}/root/cron-scripts/mysql_optimized.cron
+		newexe ${MYDIR}/root/cron-scripts/automysqlbackup.cron /root/cron-scripts/01_automysqlbackup.cron
+		newexe ${MYDIR}/root/cron-scripts/mysql_optimized.cron /root/cron-scripts/02_mysql_optimized.cron
 		keepdir /var/backup/mysql
 	fi
 }
