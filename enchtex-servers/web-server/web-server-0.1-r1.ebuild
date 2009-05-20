@@ -69,6 +69,11 @@ src_install() {
 				doins "${MYDIR}"/etc/nginx/vhost.avail/000_phpmyadmin_vhost.conf
 				insinto /var/www/localhost/htdocs/phpmyadmin
 				doins "${MYDIR}"/var/www/localhost/htdocs/phpmyadmin/config.inc.php
+
+				einfo
+				einfo "For enable phpmyadmin edit config vhost /etc/nginx/vhost.avail/000_phpmyadmin_vhost.conf"
+				einfo "and than run: >> eselect nginx enable 000_phpmyadmin_vhost.conf"
+				einfo
 			fi
 		fi
 	fi
