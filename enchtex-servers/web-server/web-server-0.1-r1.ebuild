@@ -25,7 +25,7 @@ mysql? ( dev-db/mysql
 
 RDEPEND="${DEPEND}"
 
-WEB_PACKAGE=1
+WEB_PACKAGE=0
 
 src_unpack() {
 	if [[ "${WEB_PACKAGE}" == 1 ]] ; then
@@ -65,10 +65,10 @@ src_install() {
 			if use php ; then
 				newconfd "${MYDIR}"/etc/conf.d/spawn-fcgi.admin spawn-fcgi.admin
 				dosym spawn-fcgi /etc/init.d/spawn-fcgi.admin
-				insinto /etc/nginx/sites-available
-				doins "${MYDIR}"/etc/nginx/sites-available/phpmyadmin_vhosts.conf
-				insinto /var/www/localhost/htdocs/phpmyadmin
-				doins "${MYDIR}"/var/www/localhost/htdocs/phpmyadmin/config.inc.php
+				#insinto /etc/nginx/sites-available
+				#doins "${MYDIR}"/etc/nginx/sites-available/phpmyadmin_vhosts.conf
+				#insinto /var/www/localhost/htdocs/phpmyadmin
+				#doins "${MYDIR}"/var/www/localhost/htdocs/phpmyadmin/config.inc.php
 			fi
 		fi
 	fi
