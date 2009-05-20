@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mysqlcheck --repair --analyze --optimize --all-databases --auto-repair -u root -p
