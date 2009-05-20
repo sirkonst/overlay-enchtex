@@ -65,10 +65,10 @@ src_install() {
 			if use php ; then
 				newconfd "${MYDIR}"/etc/conf.d/spawn-fcgi.admin spawn-fcgi.admin
 				dosym spawn-fcgi /etc/init.d/spawn-fcgi.admin
-				#insinto /etc/nginx/sites-available
-				#doins "${MYDIR}"/etc/nginx/sites-available/phpmyadmin_vhosts.conf
-				#insinto /var/www/localhost/htdocs/phpmyadmin
-				#doins "${MYDIR}"/var/www/localhost/htdocs/phpmyadmin/config.inc.php
+				insinto /etc/nginx/vhost.avail
+				doins "${MYDIR}"/etc/nginx/vhost.avail/000_phpmyadmin_vhost.conf
+				insinto /var/www/localhost/htdocs/phpmyadmin
+				doins "${MYDIR}"/var/www/localhost/htdocs/phpmyadmin/config.inc.php
 			fi
 		fi
 	fi
