@@ -87,5 +87,5 @@ src_install() {
 }
 
 pkg_config() {
-	 einfo "test config"
+	 einfo "test"
 }
