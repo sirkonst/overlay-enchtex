@@ -85,3 +85,7 @@ src_install() {
 		keepdir /var/backup/mysql
 	fi
 }
+
+pkg_config() {
+	 einfo "test config"
+}
