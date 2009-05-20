@@ -5,8 +5,8 @@
 DESCRIPTION="Manage nginx sites"
 MAINTAINER="sirkonst@gmail.com"
 
-NX_SITE_A_DIR="/etc/nginx/sites-available"
-NX_SITE_E_DIR="/etc/nginx/sites-enabled"
+NX_SITE_A_DIR="/etc/nginx/vhost.avail"
+NX_SITE_E_DIR="/etc/nginx/vhost.d"
 NX_AUTO_RELOAD="false"
 
 find_targets() {
