@@ -7,7 +7,7 @@ MAINTAINER="sirkonst@gmail.com"
 
 NX_SITE_A_DIR="/etc/nginx/sites-available"
 NX_SITE_E_DIR="/etc/nginx/sites-enabled"
-NX_RELOAD="true"
+NX_AUTO_RELOAD="false"
 
 find_targets() {
 	local targets bc x i=0
@@ -38,6 +38,9 @@ is_enabled() {
 nginx_reload() {
         if [[ ${NX_RELOAD} == "true" ]] ; then
 	      /etc/init.d/nginx reload
+        else
+	echo "For reload nginx please run:"
+	echo "$(highlight '/etc/init.d/nginx reload')"
         fi
 }
 
