@@ -40,7 +40,7 @@ nginx_reload() {
 	      /etc/init.d/nginx reload
         else
 	echo "For reload nginx please run:"
-	echo "$(highlight '/etc/init.d/nginx reload')"
+	echo ">> /etc/init.d/nginx reload"
         fi
 }
 
