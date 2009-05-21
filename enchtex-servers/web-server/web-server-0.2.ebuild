@@ -49,6 +49,7 @@ src_install() {
 		doins ${MYDIR}/etc/nginx/nginx.conf
 		keepdir /etc/nginx/vhost.avail
 		keepdir /etc/nginx/vhost.d
+		keepdir	/etc/nginx/ssl
 
 		insinto /usr/share/eselect/modules
 		doins ${FILESDIR}/nginx.eselect
