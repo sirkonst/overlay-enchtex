@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+inherit ssl-cert
+
 DESCRIPTION="Web setup vz-server"
 HOMEPAGE="http://wiki.enchtex.info"
 SRC_URI="web-server-0.2.tar.bz2"
@@ -70,11 +72,6 @@ src_install() {
 				doins "${MYDIR}"/etc/nginx/vhost.avail/000_phpmyadmin_vhost.conf
 				insinto /var/www/localhost/htdocs/phpmyadmin
 				doins "${MYDIR}"/var/www/localhost/htdocs/phpmyadmin/config.inc.php
-
-				einfo
-				einfo "For enable phpmyadmin edit config vhost /etc/nginx/vhost.avail/000_phpmyadmin_vhost.conf"
-				einfo "and than run: >> eselect nginx enable 000_phpmyadmin_vhost.conf"
-				einfo
 			fi
 		fi
 	fi
@@ -92,6 +89,13 @@ pkg_postinst() {
 		  if [ ! -f "${ROOT}"/etc/nginx/ssl/default.key ]; then
 			   install_cert /etc/nginx/ssl/default
 			   #chown ${PN}:${PN} "${ROOT}"/etc/nginx/ssl/default.{crt,csr,key,pem}
+		  fi
+
+		  if use mysql ; then
+			   einfo
+			   einfo "For enable phpmyadmin edit config vhost /etc/nginx/vhost.avail/000_phpmyadmin_vhost.conf"
+			   einfo "and than run: >> eselect nginx enable 000_phpmyadmin_vhost.conf"
+			   einfo
 		  fi
 	 fi
 }
