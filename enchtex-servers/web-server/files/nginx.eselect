@@ -47,13 +47,13 @@ nginx_reload() {
 ### list action ###
 
 describe_list() {
-	echo "List available site _vhosts.conf files"
+	echo "List available site _vhost.conf files"
 }
 
 do_list() {
 	local opts
 	targets=( $(find_targets) )
-	write_list_start "Available site _vhosts.conf files  ( $(highlight '*') is enabled ):"
+	write_list_start "Available site _vhost.conf files  ( $(highlight '*') is enabled ):"
 
 	if [[ -n "${targets[@]}" ]] ; then
 		for (( n = 0 ; n < ${#targets[@]} ; ++n )) ; do
@@ -72,7 +72,7 @@ do_list() {
 ### enable action ###
 
 describe_enable() {
-	echo "Enable specified site _vhosts.conf file(s)"
+	echo "Enable specified site _vhost.conf file(s)"
 }
 
 describe_enable_parameters() {
@@ -86,7 +86,7 @@ describe_enable_options() {
 do_enable() {
 	local bc bcdir="${ROOT}${NX_SITE_E_DIR}"
 
-	[[ -z ${1} ]] && die -q "You didn't specify any _vhosts.conf files to enable"
+	[[ -z ${1} ]] && die -q "You didn't specify any _vhost.conf files to enable"
 
 	# create directory if necessary
 	if [[ ! -d ${bcdir} && -w $(dirname ${bcdir}) ]] ; then
@@ -185,7 +185,7 @@ describe_disable_options() {
 do_disable() {
 	local bc bcdir="${ROOT}${NX_SITE_E_DIR}"
 
-	[[ -z ${1} ]] && die -q "You didn't specify any _vhosts.conf files to disable"
+	[[ -z ${1} ]] && die -q "You didn't specify any _vhost.conf files to disable"
 
 	targets=( $(find_targets) )
 
