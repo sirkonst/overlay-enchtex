@@ -34,7 +34,7 @@ src_unpack() {
 }
 
 src_install() {
-	MYDIR="${FILESDIR}/templ"
+	MYDIR="web-server"
 
 	if use ftp ; then
 		insinto /etc/proftpd
