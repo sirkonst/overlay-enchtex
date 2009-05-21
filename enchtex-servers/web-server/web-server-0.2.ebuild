@@ -87,6 +87,15 @@ src_install() {
 	fi
 }
 
+pkg_postinst() {
+	 if use nginx ; then
+		  if [ ! -f "${ROOT}"/etc/nginx/ssl/default.key ]; then
+			   install_cert /etc/nginx/ssl/default
+			   #chown ${PN}:${PN} "${ROOT}"/etc/nginx/ssl/default.{crt,csr,key,pem}
+		  fi
+	 fi
+}
+
 pkg_config() {
 	 einfo "test"
 }
