@@ -49,6 +49,8 @@ src_install() {
 		insinto /etc/nginx
 		doins ${MYDIR}/etc/nginx/fastcgi_params
 		doins ${MYDIR}/etc/nginx/nginx.conf
+		doins ${MYDIR}/etc/nginx/ssl.conf
+		doins ${MYDIR}/etc/nginx/ssl_only.conf
 		keepdir /etc/nginx/vhost.avail
 		keepdir /etc/nginx/vhost.d
 		keepdir	/etc/nginx/ssl
