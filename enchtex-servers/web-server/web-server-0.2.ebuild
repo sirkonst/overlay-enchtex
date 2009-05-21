@@ -19,8 +19,8 @@ DEPEND="enchtex-servers/base-server
 app-admin/apache-tools
 app-arch/unzip
 ftp? ( net-ftp/proftpd )
-nginx? ( www-servers/nginx www-servers/lighttpd )
-php? ( dev-lang/php dev-php5/suhosin dev-php5/eaccelerator )
+nginx? ( www-servers/nginx )
+php? ( dev-lang/php dev-php5/suhosin dev-php5/eaccelerator www-servers/lighttpd )
 mysql? ( dev-db/mysql
 	php? ( dev-db/phpmyadmin ) )
 "
