@@ -4,7 +4,7 @@
 
 DESCRIPTION="Web setup vz-server"
 HOMEPAGE="http://wiki.enchtex.info"
-#SRC_URI="web-server-0.1.tar.bz2"
+SRC_URI="web-server-0.2.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,7 +25,7 @@ mysql? ( dev-db/mysql
 
 RDEPEND="${DEPEND}"
 
-WEB_PACKAGE=0
+WEB_PACKAGE=1
 
 src_unpack() {
 	if [[ "${WEB_PACKAGE}" == 1 ]] ; then
