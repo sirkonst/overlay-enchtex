@@ -45,5 +45,5 @@ src_install() {
 	done
 
 	insinto /etc
-	doins "${FILESDIR}"/motd-${PVR}
+	newins "${FILESDIR}"/motd-${PVR} motd
 }
