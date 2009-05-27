@@ -1,0 +1,184 @@
+From 3b29954bc31e8a26755873fc2e5b815c48a630bd Mon Sep 17 00:00:00 2001
+From: Konstantin vzOne Enchant <sirkonst@gmail.com>
+Date: Wed, 27 May 2009 16:09:08 +0400
+Subject: [PATCH 3/3] test admin.php
+
+---
+ admin.php |   53 ++++++++++++++++++++++++++++-------------------------
+ 1 files changed, 28 insertions(+), 25 deletions(-)
+
+diff --git a/admin.php b/admin.php
+index 2c9838e..1aa9f6f 100644
+--- a/admin.php
++++ b/admin.php
+@@ -1,22 +1,25 @@
+ <?php
+ 
+ /**
++
++~~~~~~~~~~TEST~~~~~~~~~~~~~~~~~`
++
+  * Главный административный файл ЦМС
+- * 
++ *
+  * Производит логин пользователя и восстановление забытого пароля
+- * 
++ *
+  * @filesource admin.php
+  * @author blade39 <blade39@kolosstudio.ru>, Ilya Doroshko <ilya@kolosstudio.ru>, north-e <pushkov@kolosstudio.ru>
+- * 
++ *
+  * @version 1.0
+  * @since 25.03.2009
+- * 
++ *
+  * 1. Переход к поддержке разнообразных кодировок и языковых файлов.
+  * 2. Установка кодировки UTF-8 базовой кодировкой.
+- * 
++ *
+  * @version 1.1
+  * @since 11.05.2009
+- * 
++ *
+  * Исправлены ошибки при восстановлении пароля
+  */
+ 
+@@ -70,7 +73,7 @@ if (file_exists(MODULES_DIR.'/main'))
+ 			die();
+ 		}
+ 	}
+-	
++
+ 	/* Пользователь не вошел на сайт */
+ 	if (!$USER->is_login)
+ 	{
+@@ -78,20 +81,20 @@ if (file_exists(MODULES_DIR.'/main'))
+ 		if ($_GET['lostpwd'] == 'Y')
+ 		{
+ 			$step = 1;
+-			
++
+ 			if ($_POST['step'] == 2)
+ 			{
+ 				$step = 2;
+-				
++
+ 				/* Переданный почтовый адрес администратора */
+ 				$email = $_POST['email'];
+-				
++
+ 				if (!CCaptcha::CheckCaptcha($_POST['c']))
+ 				{
+ 					$smarty->assign('message', 'Неверное изображение с картинки');
+ 					$step = 1;
+ 				}
+-				else 
++				else
+ 				{
+ 					/* Ищем пользователя с таким почтовым адресом в базе */
+ 					if (($res = $USER->GetRecord(array('email' => $email))) && $email != '')
+@@ -103,7 +106,7 @@ if (file_exists(MODULES_DIR.'/main'))
+ 							foreach ($user_groups as $user_group)
+ 								if ($user_group["group_id"] == 1)
+ 									$is_admin = 1;
+-									
++
+ 						if ($is_admin)
+ 						{
+ 							/* Необходимо получить переменные для шаблона письма */
+@@ -111,13 +114,13 @@ if (file_exists(MODULES_DIR.'/main'))
+ 							$CModuleHookUp = new CModuleHookUp();
+ 							$SITE = $CModuleHookUp->GetConfigArray('main');
+ 							$smarty->assign('SITE', $SITE);
+-							
++
+ 							/* Формируем типа сложный, но обратимый код пользователя :) */
+ 							$id = dechex($res['id'] * 85);
+-							
++
+ 							/* Запоминаем код в Смарти */
+ 							$smarty->assign('code', $id);
+-							
++
+ 							/* Отправка письма забывшему пароль */
+ 							$msg = $smarty->fetch('admin/password_mail.tpl');
+ 							if (mail($email, "Восстановление пароля", $msg))
+@@ -125,20 +128,20 @@ if (file_exists(MODULES_DIR.'/main'))
+ 							else
+ 							$smarty->assign('message', "Отправка письма на адрес <b>$email</b>, не удалась.");
+ 						}
+-						else 
++						else
+ 						{
+ 							$step = 1;
+ 							$smarty->assign('message', "Вы не являетесь администратором сайта");
+ 						}
+ 					}
+-					else	
++					else
+ 					{
+ 						$step = 1;
+ 						$smarty->assign('message', "Пользователь с таким адресом не существует");
+ 					}
+ 				}
+ 			}
+-			
++
+ 			/* По присланому коду восстанавливаем пароль */
+ 			if ($_GET['step'] == 3)
+ 			{
+@@ -162,7 +165,7 @@ if (file_exists(MODULES_DIR.'/main'))
+ 							/* Ещё два поля нужно добавить специально для форума PHPBB3 */
+ 							$data['title'] = $res['title'];
+ 							$data['email'] = $res['email'];
+-							
++
+ 							$USER->Save('', $data);
+ 							$smarty->assign('pwd', $pwd);
+ 						}
+@@ -184,36 +187,36 @@ if (file_exists(MODULES_DIR.'/main'))
+ 			exit();
+ 		}
+ 	}
+-	
++
+ 	//Проверяем наличие модуля справки, если он установлен, вызываем генерацию ссылки помощи
+ 	if($KS_MODULES->IsModule('help'))
+ 	{
+ 		include_once(MODULES_DIR.'/help/pages/getHelpUrl.php');
+ 		include_once(MODULES_DIR.'/help/libs/class.CToolTips.php');
+ 		$KS_TOOLTIPS=new CToolTip();
+-	}	
++	}
+ 	// Выводим текущий модуль (определяется по параметрам в УРЛ).
+ 	$mod_result = $KS_MODULES->AdminShowModule($KS_MODULES->current);
+ 	//Выполняем отрисовку сайта
+ 	$smarty->assign('left_menu',$KS_MODULES->GetMenu());
+ 	//Передаем данные о модуле в шаблонe
+ 	$smarty->assign('module',array('current'=>$KS_MODULES->current,'page'=>$KS_MODULES->page));
+-	
+-	/* Определяем header для отображения */ 
++
++	/* Определяем header для отображения */
+ 	//  - Стандартный
+ 	if(!$_REQUEST['disp_design']) { $smarty->display('admin/header.tpl'); }
+ 	//  - Для всплывающего фрейма
+ 	elseif($_REQUEST['disp_design'] == "1") { $smarty->display('admin/header_ajax.tpl'); }
+ 	// Для окошка удаления
+ 	elseif($_REQUEST['disp_design'] == "2") { $smarty->display('admin/header_lite.tpl'); }
+-	
++
+ 	$template_to_display = 'admin/' . $KS_MODULES->current . $KS_MODULES->page . '.tpl';
+ 	if ($KS_ERROR->error==0 && $mod_result)
+ 		$smarty->display($template_to_display);
+ 	$end=microtime(1);
+ 	$smarty->assign('gen_time',$end-$begin);
+ 
+-	// Проверка какой footer подключать. 
++	// Проверка какой footer подключать.
+ 	//  - Стандартный
+ 	if(!$_REQUEST['disp_design']) { $smarty->display('admin/footer.tpl'); }
+ 	//  - Для всплывающего фрейма
+-- 
+1.6.3
+
