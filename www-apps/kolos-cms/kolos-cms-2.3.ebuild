@@ -1,6 +1,6 @@
 # KolosStudio.Ru
 
-inherit webapp depend.php
+inherit webapp depend.php eutils
 
 DESCRIPTION="Kolos CMS"
 HOMEPAGE="http://www.kolosstudio.ru"
@@ -14,6 +14,15 @@ need_httpd_cgi
 need_php_httpd
 
 S="${WORKDIR}"
+
+src_unpack() {
+    unpack ${A}
+    cd "${S}"
+
+    EPATCH_SOURCE="${FILESDIR}/v2.3-patches" \
+	EPATCH_SUFFIX="patch" \
+	EPATCH_FORCE="yes" epatch
+}
 
 pkg_setup () {
 	webapp_pkg_setup

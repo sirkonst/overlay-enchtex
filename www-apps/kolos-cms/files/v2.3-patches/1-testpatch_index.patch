@@ -1,0 +1,75 @@
+From 5e2dfd6967ccb799b3b2fd28866ebc912e603b84 Mon Sep 17 00:00:00 2001
+From: Konstantin vzOne Enchant <sirkonst@gmail.com>
+Date: Wed, 27 May 2009 13:36:29 +0400
+Subject: [PATCH] =?utf-8?q?=D1=82=D0=B5=D1=81=D1=82=D0=BE=D0=B2=D0=BE=D0=B5=20=D0=B8=D1=81=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D0=B5?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+---
+ index.php |   15 +++++++++------
+ 1 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/index.php b/index.php
+index d736ffb..44d6ad5 100644
+--- a/index.php
++++ b/index.php
+@@ -1,5 +1,8 @@
+ <?php
+ /*
++
++!!!!!!!!!!TEST!!!!!!!!!
++
+ KS ENGINE
+ tetat
+ File: index.php
+@@ -33,7 +36,7 @@ try
+ 			вида: dir1/dir2/file.html
+ 		$_GET['<другие перменные>']
+ 	*/
+-	
++
+ 	/*
+ 	ОБРАБОТКА PATH
+ 		$matches[1] -- массив директорий со слешем на конце ОБЯЗТЕЛЬНО (по-другому не отработает)
+@@ -45,8 +48,8 @@ try
+ 	$KS_IND_matches[1]=explode('/',$_GET['path']);
+ 	$KS_IND_matches[2]=array_pop($KS_IND_matches[1]);
+ 	$KS_IND_matches[3]=substr($KS_IND_matches[2],0,strrpos($KS_IND_matches[2],'.'));
+-	
+-	if( isset($KS_IND_matches[1]) ) 
++
++	if( isset($KS_IND_matches[1]) )
+ 	{
+ 		/* обратились к какой-либо директории относително корня */
+ 		/*
+@@ -57,7 +60,7 @@ try
+ 		$KS_IND_dir = $KS_IND_matches[1];
+ 	}
+ 	/* глобальный шаблон */
+-	
++
+ 	try
+ 	{
+ 		$global_template =  $CModuleHookUp->select_global_template($KS_IND_matches[0]);
+@@ -72,7 +75,7 @@ try
+ 	//$output=$e->text_error('Ошибка 404. Страница не найдена', '404', (($global_template.'/.template.tpl')?$global_template:'.default'));
+ 	}
+ 
+-	if( $output['include_global_template'] != '0' ) 
++	if( $output['include_global_template'] != '0' )
+ 	{
+ 		$smarty->assign('output', $output);
+ 		$page=$smarty->fetch($global_template.'/.template.tpl');
+@@ -80,7 +83,7 @@ try
+ 		$page=preg_replace('#<body.*>#','<body $1><script type="text/javascript" src="http://www.che.ru/hosting/advert/banner.php?site='.$_SERVER['HTTP_HOST'].'&type=top"></script>',$page);
+ 		echo $page;
+ 	}
+-	
++
+ 	$end=microtime(1);
+ 	$sys_info['gen_tyme'] = ($end-$begin);
+ 	$sys_info['sql_gen_tyme'] = $ks_db->MySQL_time_taken;
+-- 
+1.6.3
+
