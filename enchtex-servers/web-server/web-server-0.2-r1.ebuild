@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit ssl-cert
+inherit ssl-cert eutils
 
 DESCRIPTION="Web setup vz-server"
 HOMEPAGE="http://wiki.enchtex.info"
