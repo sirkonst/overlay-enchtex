@@ -27,14 +27,10 @@ mysql? ( dev-db/mysql
 
 RDEPEND="${DEPEND}"
 
-WEB_PACKAGE=1
-
 src_unpack() {
-	if [[ "${WEB_PACKAGE}" == 1 ]] ; then
-		unpack ${A}
-	fi
-
-	 epatch ${FILESDIR}/v0.2-patches/0001-logrotate.d-nginx.patch
+	 unpack ${A}
+	 cd "${WORKDIR}/web-server"
+	 EPATCH_OPTS="-p1" epatch "${FILESDIR}/v0.2-patches/0001-logrotate.d-nginx.patch"
 
   #EPATCH_SOURCE="${FILESDIR}/v${PV}-patches" \
   #EPATCH_SUFFIX="patch" \
