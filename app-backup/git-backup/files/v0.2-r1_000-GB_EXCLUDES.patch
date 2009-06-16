@@ -1,0 +1,29 @@
+From 9c8fd66f41a17b58846e21a524d526fbf06c4a22 Mon Sep 17 00:00:00 2001
+From: Konstantin vzOne Enchant <sirkonst@gmail.com>
+Date: Tue, 16 Jun 2009 12:09:30 +0400
+Subject: [PATCH] =?utf-8?q?=D0=B2=D0=BE=D1=81=D1=81=D1=82=D0=B0=D0=BD=D0=BE=D0=B2=D0=BB=D0=B5=D0=BD=D0=B0=20=D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=BE=D1=81=D0=BF=D0=BE=D1=81=D0=BE=D0=B1=D0=BD=D0=BE=D1=81=D1=82=D1=8C=20GB=5FEXCLUDES?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+---
+ usr/bin/gb-backup |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/usr/bin/gb-backup b/usr/bin/gb-backup
+index e9a75da..56c780e 100755
+--- a/usr/bin/gb-backup
++++ b/usr/bin/gb-backup
+@@ -26,6 +26,9 @@ _optimized() {
+ __exin_config() {
+ 	echo -e "#exclude config\n" > ${GIT_DIR}/info/exclude
+ 
++	# отключение подстановки имен файлов по шаблону *
++	GLOBIGNORE="*"
++
+ 	#if [ -n "${GB_INCLUDES}" ] ; then
+ 	#	echo "*" >> ${GIT_DIR}/info/exclude
+ 	#	for x in "${GB_INCLUDES}" ; do
+-- 
+1.6.3.1
+
