@@ -1,0 +1,53 @@
+From d49a58d18d3c2c2519ee50741361bd19bb757be4 Mon Sep 17 00:00:00 2001
+From: Konstantin vzOne Enchant <sirkonst@gmail.com>
+Date: Tue, 16 Jun 2009 15:49:34 +0400
+Subject: [PATCH] =?utf-8?q?=D1=82=D0=B5=D1=81=D1=82=D0=BE=D0=B2=D0=B0=D1=8F=20=D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=BE=D1=81=D0=BF=D0=BE=D1=81=D0=BE=D0=B1=D0=BD=D0=BE=D1=81=D1=82=D1=8C=20GB=5FINCLUDES?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+---
+ usr/bin/gb-backup |   17 ++++-------------
+ 1 files changed, 4 insertions(+), 13 deletions(-)
+
+diff --git a/usr/bin/gb-backup b/usr/bin/gb-backup
+index 56c780e..433ab4f 100755
+--- a/usr/bin/gb-backup
++++ b/usr/bin/gb-backup
+@@ -26,15 +26,8 @@ _optimized() {
+ __exin_config() {
+ 	echo -e "#exclude config\n" > ${GIT_DIR}/info/exclude
+ 
+-	# отключение подстановки имен файлов по шаблону *
+-	GLOBIGNORE="*"
+-
+-	#if [ -n "${GB_INCLUDES}" ] ; then
+-	#	echo "*" >> ${GIT_DIR}/info/exclude
+-	#	for x in "${GB_INCLUDES}" ; do
+-	#	echo "!$x" >> ${GIT_DIR}/info/exclude
+-	#done
+-	#fi
++	# отключение подстановки имен файлов по шаблону * и ?
++	GLOBIGNORE="*?"
+ 
+ 	if [ -n "${GB_EXCLUDES}" ] ; then
+ 		for x in ${GB_EXCLUDES} ; do
+@@ -56,13 +49,11 @@ _backup() {
+ 	 then
+ 		$GIT init
+ 		__exin_config
+-		$GIT add .
+-		#$GIT add ${GB_INCLUDES:-.}
++		$GIT add -- ${GB_INCLUDES:-.}
+ 	 fi
+ 
+ 	__exin_config
+-	#$GIT add --all ${GB_INCLUDES}
+-	$GIT add .
++	$GIT add --all ${GB_INCLUDES:-.}
+ 
+ 	$GIT commit -a -m "${NOWDATETIME}" --quiet
+ 
+-- 
+1.6.3.1
+
