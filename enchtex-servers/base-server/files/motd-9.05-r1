@@ -1,0 +1,12 @@
+
+ >>> OpenVZ Template:               gentoo-vz-x86-prescott-hardened-base-9.05
+ >>> Version:                       9.05-r1
+ >>> Created by:                    Konstantin vzOne Enchant <sirkonst@gmail.com>
+
+ >>> Send suggestions, improvements, bug reports relating to...
+
+ >>> This OpenVZ template:          Konstantin vzOne Enchant <sirkonst@gmail.com>
+ >>> Gentoo Linux (general):        Gentoo Linux (http://www.gentoo.org)
+ >>> OpenVZ (general):              OpenVZ (http://www.openvz.org)
+
+ NOTE: This message can be removed by deleting /etc/motd.
