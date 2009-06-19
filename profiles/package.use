@@ -11,3 +11,4 @@ net-ftp/proftpd authfile ban case deflate ifsession rewrite shaper sitemisc soft
 dev-lang/php json bcmath bzip2 calendar cgi ctype curl curlwrappers discard-path exif filter force-cgi-redirect ftp gmp hash imap mhash mysql mysqli pcntl pdo posix simplexml snmp soap sockets spell suhosin sysvipc tidy tokenizer truetype wddx xml xmlreader xmlrpc xmlwriter xpm xsl zip sharedext
 dev-util/git curl cgi webdav
 net-dns/bind threads
+app-antivirus/clamav clamdtop
