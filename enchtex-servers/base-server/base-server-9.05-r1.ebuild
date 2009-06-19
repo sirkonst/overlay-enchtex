@@ -8,7 +8,7 @@ HOMEPAGE="http://wiki.enchtex.info"
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="~x86"
+KEYWORDS="x86"
 
 IUSE="linguas_ru"
 
