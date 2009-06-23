@@ -15,7 +15,7 @@ KEYWORDS="x86 amd64"
 
 IUSE=""
 
-DEPEND="dev-util/git"
+DEPEND=">=dev-util/git-1.6.1"
 
 RDEPEND="${DEPEND}"
 
