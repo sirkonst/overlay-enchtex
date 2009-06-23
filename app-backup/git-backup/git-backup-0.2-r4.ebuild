@@ -6,7 +6,7 @@ inherit eutils
 
 DESCRIPTION="Git-backup"
 HOMEPAGE="http://wiki.enchtex.info"
-SRC_URI="${P}.tar.bz2"
+SRC_URI="http://updata.enchtex.info/projects/git-backup/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
