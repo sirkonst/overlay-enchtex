@@ -11,7 +11,7 @@ SRC_URI="http://updata.enchtex.info/projects/web-server/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="~x86"
+KEYWORDS="x86"
 
 IUSE="nginx php mysql ftp postgres"
 
