@@ -2,7 +2,7 @@
 
 # My
 
-www-servers/nginx addition fastcgi flv imap status sub webdav
+www-servers/nginx addition fastcgi flv imap status sub webdav random-index
 dev-db/mysql -berkdb -perl
 net-analyzer/net-snmp diskio elf smux
 dev-php5/eaccelerator contentcache sharedmem inode disassembler
