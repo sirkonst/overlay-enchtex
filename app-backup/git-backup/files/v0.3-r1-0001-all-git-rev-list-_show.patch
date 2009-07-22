@@ -1,0 +1,28 @@
+From 3064dcc1c270f6cec7e552271b1d66fa540dab3e Mon Sep 17 00:00:00 2001
+From: Konstantin vzOne Enchant <sirkonst@gmail.com>
+Date: Wed, 22 Jul 2009 17:28:18 +0400
+Subject: [PATCH] =?utf-8?q?=D0=B4=D0=BE=D0=B1=D0=B0=D0=B2=D0=BB=D0=B5=D0=BD=D0=B0=20=D0=BE=D0=BF=D1=86=D0=B8=D1=8F=20--all=20=D0=B4=D0=BB=D1=8F=20git=20rev-list=20=D0=B2=20=5Fshow?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+---
+ usr/bin/gb-backup |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/usr/bin/gb-backup b/usr/bin/gb-backup
+index 8029121..dac352a 100755
+--- a/usr/bin/gb-backup
++++ b/usr/bin/gb-backup
+@@ -86,7 +86,7 @@ _show() {
+ 		  $GIT tag
+ 	 else
+ 		  echo -e "    ID \t |\tTime Point   | \t Daily Points"
+-		  $GIT rev-list --reverse --pretty=format:" %h | %Cblue%s%Creset | %d" ${ARCHIVES_BRANCH} | grep -v commit \
++		  $GIT rev-list --all --reverse --pretty=format:" %h | %Cblue%s%Creset | %d" ${ARCHIVES_BRANCH} | grep -v commit \
+ 		  | sed 's/refs\/tags\///g' | sed 's/tag://g' | sed 's/refs\/heads\///g' | sed 's/[()]//g'
+ 	 fi
+ }
+-- 
+1.6.3.3
+
