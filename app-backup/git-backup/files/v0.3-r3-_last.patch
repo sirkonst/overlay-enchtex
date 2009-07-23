@@ -1,0 +1,31 @@
+From ed615264b53927b92f2800061aeeb4138d82a877 Mon Sep 17 00:00:00 2001
+From: Konstantin vzOne Enchant <sirkonst@gmail.com>
+Date: Thu, 23 Jul 2009 16:12:11 +0400
+Subject: [PATCH] =?utf-8?q?=D0=92=D0=BE=D1=81=D1=81=D1=82=D0=B0=D0=BD=D0=BE=D0=B2=D0=BB=D0=B5=D0=BD=D0=B0=20=D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=BE=D1=81=D0=BF=D0=BE=D1=81=D0=BE=D0=B1=D0=BD=D0=BE=D1=81=D1=82=D1=8C=20=5Flast?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+---
+ usr/bin/gb-backup |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/usr/bin/gb-backup b/usr/bin/gb-backup
+index f2d20b9..c77cbe9 100755
+--- a/usr/bin/gb-backup
++++ b/usr/bin/gb-backup
+@@ -133,9 +133,9 @@ __get_point() {
+ # TODO: с тега git show отображаен лишную информацию
+ _last() {
+ 	shift
+-	POINT=`__get_point $1`
++	POINT=$(__get_point $1)
+ 
+-	$GIT show --name-status --pretty=format:"Изменения в архиве '%s' [%ar]" "${POINT}"
++	$GIT show --name-status --pretty=format:"Изменения в архиве '%s' [%ar]" "${POINT:-HEAD}"
+ }
+ 
+ # показать различия в архиве
+-- 
+1.6.3.3
+

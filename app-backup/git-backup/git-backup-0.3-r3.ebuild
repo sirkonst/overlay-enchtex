@@ -28,6 +28,7 @@ src_unpack() {
 
 	epatch "${FILESDIR}/v0.3-r1-0001-all-git-rev-list-_show.patch" || die "patch failed"
 	epatch "${FILESDIR}/v0.3-r2-_restore_new.patch" || die "patch failed"
+	epatch "${FILESDIR}/v0.3-r3-_last.patch" || die "patch failed"
 }
 
 src_install() {
