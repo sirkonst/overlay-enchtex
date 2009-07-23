@@ -1,0 +1,143 @@
+From 0bea9dac06f5ef9e6b106a718f7b43531e0507ac Mon Sep 17 00:00:00 2001
+From: Konstantin vzOne Enchant <sirkonst@gmail.com>
+Date: Thu, 23 Jul 2009 15:56:05 +0400
+Subject: [PATCH] =?utf-8?q?=D0=98=D0=B7=D0=BC=D0=B5=D0=BD=D1=91=D0=BC=20=D0=BC=D0=B5=D1=85=D0=B0=D0=BD=D0=B8=D0=BC=D0=B7=20=D0=B2=D0=BE=D1=81=D1=81=D1=82=D0=B0=D0=BD=D0=BE=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F=20(=5Frestore=5Fnew).?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+Старая версия в _restore_old
+
+Добавлена функция __error()
+
+Изменен __get_point() - больше н воозвращает HEAD по умолчанию
+---
+ usr/bin/gb-backup |   61 ++++++++++++++++++++++++++++++++++++++++++++++------
+ 1 files changed, 54 insertions(+), 7 deletions(-)
+
+diff --git a/usr/bin/gb-backup b/usr/bin/gb-backup
+index dac352a..f2d20b9 100755
+--- a/usr/bin/gb-backup
++++ b/usr/bin/gb-backup
+@@ -15,6 +15,13 @@ fi
+ 
+ cd ${GIT_WORK_TREE}
+ 
++# [$1] - сообщение об ошибке
++__error() {
++	 echo -n "Ошибка выполнения"
++	 echo ": $1."
++	 exit 1
++}
++
+ _optimized() {
+ 	 $GIT fsck
+ 	 $GIT count-objects
+@@ -94,7 +101,7 @@ _show() {
+ # show with relative date
+ # $GIT rev-list --format=" %h | %Cblue%s%Creset (%ar) | %d" ${ARCHIVES_BRANCH} | grep -v commit
+ 
+-# поиск хеша по временной метке
++# поиск хеша по временной метке (устаревшая)
+ # например: 2009-06-01_13h29m -> c3cbf30e98373ad10ef080e09bcad1c79257fade
+ # TODO: _point_to_hash может вернуть больше одной записи
+ # TODO: удалить функцию и заменить на __get_point()
+@@ -104,18 +111,21 @@ _point_to_hash() {
+ 
+ # выдает точку архива из тега или записи вида '2009-06-16_17h47m'
+ # $1 - строка для преобразования
+-# возвращается либо точка архива если найдена либо HEAD
++# -возвращается-либо-точка-архива-если-найдена-либо-HEAD-
++# TODO: убрано возвращение HEAD при отсутствии
+ __get_point() {
++	 local POINT
++
+ 	 if [ -n "$1" ] ; then
+ 		# точка восстановления из тега
+ 		POINT=`$GIT tag | grep "$1"`
+ 		# если тег не найдет, то точка ищется в коммитах
+ 		if [ -z "$POINT" ] ; then
+-			POINT=`$GIT rev-list --grep="$1" ${ARCHIVES_BRANCH}`
++			POINT=`$GIT rev-list --all --grep="$1"`
+ 		fi
+ 	 fi
+ 
+-	echo "${POINT:-HEAD}"
++	 echo $POINT
+ }
+ 
+ # показывает последнии изменения в точке архивации
+@@ -137,7 +147,7 @@ _diff() {
+ # $1 - точка восстановления (по умолчанию последняя точка HEAD)
+ # $2,3... - файлы для восстановления
+ # TODO: _point_to_hash может вернуть больше одной записи
+-_restore() {
++_restore_old() {
+ 	 shift;
+ 
+ 	 if [ -n "$1" ] ; then
+@@ -164,6 +174,43 @@ _restore() {
+ 	 $GIT checkout -f $POINT -- $restFILES && echo "...восстановление завершено!"
+ }
+ 
++# $1 - точка восстановления (по умолчанию последняя точка HEAD)
++# $2,3... - файлы для восстановления
++# TODO: _point_to_hash может вернуть больше одной записи
++_restore_new() {
++	 shift;
++
++	 if [ -n "$1" ] ; then
++		  POINT=$(__get_point $1)
++
++		  if [ -z "$POINT" ] ; then
++			   POINT=${POINT:-HEAD}
++			   hPOINT="(последняя)" # TODO: дата последней точки
++		  else
++			   hPOINT=$1 # человеко понятное описание точки
++			   shift # следующие параемтры это имена файлов
++		  fi
++
++		  restFILES=$@
++	 else
++		  POINT="HEAD"
++		  hPOINT="(последняя)" # TODO: дата последней точки
++	 fi
++
++	 RESTORE_TO=${GB_BACKUP_TARGET}
++
++	 echo -e "Будут восстановлены файлы по метке ${hPOINT}: \n\t ${restFILES:-(все файлы в архиве)}"
++	 echo "В папку ${RESTORE_TO}"
++
++	 echo
++	 _pause "-- нажмите любую кпонку для продолжения... --"
++	 echo
++
++	 $GIT archive --format=tar $POINT $restFILES | tar -xvf - -C ${RESTORE_TO} || __error "ошибка восстановления файлов"
++}
++
++# git archive --format=tar b6b04bf | tar -xvf - -C /home/che-hosting/sites/che.ru/
++
+ # очистка заданного пути от файлов которых нет в архиве
+ # $1,2... - пути для проверки и очистки
+ _clean() {
+@@ -208,7 +255,7 @@ _git() {
+ _help() {
+ 	 echo "Доступные комманды: "
+ 	 echo -e "\t backup [daily] [tag]"
+-	 echo -e "\t restore [point] [file|path...]"
++	 echo -e "\t restore <point> <file|path...>"
+ 	 echo -e "\t status"
+ 	 echo -e "\t last [point]"
+ 	 echo -e "\t ls"
+@@ -220,7 +267,7 @@ _help() {
+ 
+ case "$1" in
+ 	 "backup"	)	_backup $2;;
+-	 "restore"	)	_restore $@;;
++	 "restore"	)	_restore_new $@;;
+ #	 "clean"	)	_clean $@;;
+ #	 "unpack"	)	_unpack $@;;
+ 	 "status"	)	_status;;
+-- 
+1.6.3.3
+
