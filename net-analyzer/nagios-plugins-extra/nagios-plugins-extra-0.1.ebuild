@@ -31,3 +31,7 @@ src_install() {
 pkg_postinst() {
 	 einfo "test"
 }
+
+config() {
+	einfo "config test"
+}
