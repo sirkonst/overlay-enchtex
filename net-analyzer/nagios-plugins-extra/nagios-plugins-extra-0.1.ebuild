@@ -25,7 +25,7 @@ src_install() {
 	keepdir /usr/lib/nagios/plugins/extra
 
 	exeinto /usr/lib/nagios/plugins/extra
-	newexe ${FILESDIR}/${PV}/*
+	doexe ${FILESDIR}/${PV}/*
 }
 
 pkg_postinst() {
