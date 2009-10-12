@@ -32,6 +32,6 @@ pkg_postinst() {
 	 einfo "test"
 }
 
-config() {
+pkg_config() {
 	einfo "config test"
 }
