@@ -15,7 +15,8 @@ KEYWORDS="x86 amd64"
 
 IUSE=""
 
-DEPEND="net-analyzer/nagios-plugins"
+DEPEND="net-analyzer/nagios-nrpe
+net-analyzer/nagios-plugins"
 
 RDEPEND="${DEPEND}"
 
