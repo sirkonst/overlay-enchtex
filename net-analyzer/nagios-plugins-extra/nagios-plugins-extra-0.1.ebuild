@@ -35,4 +35,7 @@ pkg_postinst() {
 
 pkg_config() {
 	einfo "config test"
+	patch -d /tmp -N -p0 -o /tmp/nrpe.cfg.new /etc/nagios/nrpe.cfg ${FILESDIR}/nrpe.cfg.extra.patch
+	cp /etc/nagios/nrpe.cfg /etc/nagios/nrpe.cfg.bak
+	cp /tmp/nrpe.cfg.new /etc/nagios/nrpe.cfg
 }
