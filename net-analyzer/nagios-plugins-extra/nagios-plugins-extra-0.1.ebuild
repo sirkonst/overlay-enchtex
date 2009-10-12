@@ -24,8 +24,8 @@ S="${WORKDIR}/${PN}"
 src_install() {
 	keepdir /usr/lib/nagios/plugins/extra
 
-	insinto /usr/lib/nagios/plugins/extra
-	doins ${FILESDIR}/${PV}/*
+	exeinto /usr/lib/nagios/plugins/extra
+	newexe ${FILESDIR}/${PV}/*
 }
 
 pkg_postinst() {
