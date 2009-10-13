@@ -33,8 +33,10 @@ src_install() {
 }
 
 pkg_postinst() {
+	einfo
 	einfo "For configure run:"
-	einfo "emerge ${PF} --config"
+	einfo "emerge =net-analyzer/${PF} --config"
+	einfo
 }
 
 pkg_config() {
@@ -62,8 +64,11 @@ pkg_config() {
 	sed 's/^dont_blame_nrpe=0/dont_blame_nrpe=1/g' -i $NRPECONF
 	sed "s/^allowed_hosts=.*/allowed_hosts=${ALLOWEDHOSTS}/g" -i $NRPECONF
 	sed 's/^command/#command/g' -i $NRPECONF
-	echo -e "\n# INCLUDE COMMANDS CONFIG" >> $NRPECONF
-	echo "include=${COMMANDSCFG}" >> $NRPECONF
+
+	if [ -z "`grep "^include=/etc/nagios/nrpe-commands.cfg" $NRPECONF`" ]; then
+		echo -e "\n# INCLUDE COMMANDS CONFIG" >> $NRPECONF
+		echo "include=${COMMANDSCFG}" >> $NRPECONF
+	fi
 
 	echo -e "\nConfigure done!\n"
 
