@@ -13,4 +13,4 @@ dev-lang/php json bcmath bzip2 calendar cgi ctype curl curlwrappers discard-path
 dev-util/git iconv curl -perl -webdav
 net-dns/bind threads
 app-antivirus/clamav clamdtop
-net-nds/openldap icu syslog
+net-nds/openldap icu syslog overlays
