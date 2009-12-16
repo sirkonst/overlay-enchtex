@@ -1,0 +1,25 @@
+--- engine.c.orig	2004-12-31 06:10:19.000000000 +0300
++++ engine.c	2009-12-16 15:01:24.680864392 +0300
+@@ -596,14 +596,14 @@
+ 	}
+
+ 	dns_to_name(sa, q, 0);
+-	if (wild) {
+-		/* wildcard search */
+-		str_init(sb);
+-		str_copy(sb, "*.");
+-		str_cat(sb, str(sa));
+-		str_copy(sa, str(sb));
+-		mem_free(str(sb));
+-	}
++// 	if (wild) {
++// 		/* wildcard search */
++// 		str_init(sb);
++// 		str_copy(sb, "*.");
++// 		str_cat(sb, str(sa));
++// 		str_copy(sa, str(sb));
++// 		mem_free(str(sb));
++// 	}
+
+ 	if (ldapdns.dn_mode == DN_MODE_LDAPDNS) {
+ 		//printf("sa=%d, ad=%d\n", str_len(sa), c->adlen);
