@@ -1,0 +1,5 @@
+# This file requires >=portage-2.1.1
+
+# My
+# Маскирование udev потому что тянет за собой ядро
+sys-fs/udev-141-r1
