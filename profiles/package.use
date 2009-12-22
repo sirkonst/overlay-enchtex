@@ -15,3 +15,4 @@ net-dns/bind threads
 app-antivirus/clamav clamdtop
 net-nds/openldap icu syslog overlays
 net-dns/pdns ldap
+net-analyzer/nagios-nrpe command-args
