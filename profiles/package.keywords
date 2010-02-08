@@ -4,3 +4,4 @@
 dev-php5/eaccelerator
 www-servers/spawn-fcgi
 =sys-apps/util-linux-2.16-r1
+net-analyzer/zabbix
