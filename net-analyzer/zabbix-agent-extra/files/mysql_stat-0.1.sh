@@ -2,13 +2,13 @@
 
 ### PARAM
 
-MYSA="/usr/bin/mysqladmin"
-#MYSA=`which mysqladmin`
 USER="root"
-PASSWD="JIDBOBDgfd"
+PASSWD="pass"
+
+MYSA=`which mysqladmin`
 
 CACHE="/tmp/mysqlstat.cache"
-CACHEVALID="50"
+CACHEVALID="50" # sec
 
 ### RUN
 

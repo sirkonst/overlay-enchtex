@@ -25,13 +25,14 @@ src_install() {
 	keepdir /etc/zabbix/scripts
 
 	exeinto /etc/zabbix/scripts
-	newexe ${FILESDIR}/mysql_stat-${PV}.sh
+	newexe ${FILESDIR}/mysql_stat-${PV}.sh mysql_stat.sh
 }
 
 pkg_postinst() {
 	einfo
 	einfo "For configure run:"
-	einfo "$ cat 'UserParameter=mysql[*],/etc/zabbix/scripts/mysql_stat.sh $1' >> /etc/zabbix/zabbix_agentd.conf"
+	einfo "$ cat 'UserParameter=mysql[*],/etc/zabbix/scripts/mysql_stat.sh \$1' >> /etc/zabbix/zabbix_agentd.conf"
+	einfo "edit /etc/zabbix/scripts/mysql_stat.sh mysql USER and PASWD"
 	einfo "and restart zabbix-agent:"
 	einfo "$ /etc/init.d/zabbix-agentd restart"
 	einfo
