@@ -23,6 +23,12 @@ if [ "$1" = "ping" ]; then
 	exit
 fi
 
+# Проверка версии mysql
+if [ "$1" = "version" ]; then
+     mysql -V
+     exit
+fi
+
 ## Проверка кеша
 
 # текущее время
