@@ -31,9 +31,36 @@ src_install() {
 pkg_postinst() {
 	einfo
 	einfo "For configure run:"
-	einfo "$ cat 'UserParameter=mysql[*],/etc/zabbix/scripts/mysql_stat.sh \$1' >> /etc/zabbix/zabbix_agentd.conf"
-	einfo "edit /etc/zabbix/scripts/mysql_stat.sh mysql USER and PASWD"
-	einfo "and restart zabbix-agent:"
-	einfo "$ /etc/init.d/zabbix-agentd restart"
+	einfo "$ emerge ${CATEGORY}/${PN} --config"
 	einfo
+}
+
+pkg_config() {
+	einfo "1. Configure MySQL access."
+	einfo
+
+	read -rp "MySQL user (root): " USER
+	read -rsp "MySQL password: " PASSWD
+
+	sed -i "/^USER=/s:root:${USER:-root}:" /etc/zabbix/scripts/mysql_stat.sh
+	sed -i "/^PASSWD=/s:pass:${PASSWD}:" /etc/zabbix/scripts/mysql_stat.sh
+
+	einfo
+	einfo "2. Automatic add UserParameter into zabbix agent config."
+
+	ADDCONF='UserParameter=mysql[*],/etc/zabbix/scripts/mysql_stat.sh $1'
+
+	if [ -z "`grep -F "$ADDCONF" /etc/zabbix/zabbix_agentd.conf`" ]; then
+		echo -e "\n# MySQL stat parameters:" >> /etc/zabbix/zabbix_agentd.conf
+		echo "$ADDCONF" >> /etc/zabbix/zabbix_agentd.conf
+	fi
+
+	if [ -z "`grep -F "$ADDCONF" /etc/zabbix/zabbix_agent.conf`" ]; then
+		echo -e "\n# MySQL stat parameters:" >> /etc/zabbix/zabbix_agent.conf
+		echo "$ADDCONF" >> /etc/zabbix/zabbix_agent.conf
+	fi
+
+	einfo
+	einfo "3. Restart zabbix agent. Please run:"
+	einfo "$ /etc/init.d/zabbix-agentd restart"
 }
