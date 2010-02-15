@@ -23,9 +23,13 @@ S="${WORKDIR}/${PN}"
 
 src_install() {
 	keepdir /etc/zabbix/scripts
+	fowners zabbix:zabbix /etc/zabbix/scripts
+	fperms 750 /etc/zabbix/scripts
 
 	exeinto /etc/zabbix/scripts
 	newexe ${FILESDIR}/mysql_stat-${PV}.sh mysql_stat.sh
+	fowners zabbix:zabbix /etc/zabbix/scripts/mysql_stat.sh
+	fperms 750 /etc/zabbix/scripts/mysql_stat.sh
 }
 
 pkg_postinst() {
