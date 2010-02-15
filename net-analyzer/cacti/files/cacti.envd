@@ -1,9 +1,0 @@
-# Sets up the Cacti settings
-CACTI_HOME="/var/www/localhost/htdocs/cacti"
-# Sets up the DB settings
-CACTI_SQL_DBHOST="localhost"
-CACTI_SQL_DBNAME="cacti"
-CACTI_SQL_DBUSER="cactiuser"
-CACTI_SQL_DBPASS="cactiuser"
-CACTI_SQL_DBPORT="3306"
-CACTI_SQL_DBTYPE="mysql"
