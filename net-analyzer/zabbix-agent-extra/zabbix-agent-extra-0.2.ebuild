@@ -52,16 +52,16 @@ pkg_config() {
 	einfo
 	einfo "2. Automatic adding UserParameter into zabbix agent config."
 
-	ADDCONF="UserParameter=mysql[*],/etc/zabbix/scripts/mysql_stat.sh \$1 $USER $PASSWD"
+	ADDCONF='UserParameter=mysql[*],/etc/zabbix/scripts/mysql_stat.sh $1'
 
 	if [ -z "`grep -F "$ADDCONF" /etc/zabbix/zabbix_agentd.conf`" ]; then
 		echo -e "\n# MySQL stat parameters:" >> /etc/zabbix/zabbix_agentd.conf
-		echo "$ADDCONF" >> /etc/zabbix/zabbix_agentd.conf
+		echo "$ADDCONF $USER $PASSWD" >> /etc/zabbix/zabbix_agentd.conf
 	fi
 
 	if [ -z "`grep -F "$ADDCONF" /etc/zabbix/zabbix_agent.conf`" ]; then
 		echo -e "\n# MySQL stat parameters:" >> /etc/zabbix/zabbix_agent.conf
-		echo "$ADDCONF" >> /etc/zabbix/zabbix_agent.conf
+		echo "$ADDCONF $USER $PASSWD" >> /etc/zabbix/zabbix_agent.conf
 	fi
 
 	einfo
