@@ -53,14 +53,6 @@ __prepare_module() {
 	rm -rf "${WORKDIR}"/$1
 }
 
-src_unpack() {
-	unpack ${P/_/}.tar.bz2
-	cd "${S}"
-
-	epatch "${FILESDIR}"/proftpd-1.3.3-sftp-fxp-open-trunc-bug3449.patch
-	epatch "${FILESDIR}"/proftpd-1.3.3-sftp-fxp-clear-cache-bug3448.patch
-}
-
 pkg_setup() {
 	if [ -f "${ROOT}"/var/run/proftpd.pid ] ; then
 		eerror "Your ProFTPD server is running. In order to install this update"
@@ -74,6 +66,10 @@ pkg_setup() {
 }
 
 src_prepare() {
+	#cd "${S}"
+	epatch "${FILESDIR}"/proftpd-1.3.3-sftp-fxp-open-trunc-bug3449.patch
+	epatch "${FILESDIR}"/proftpd-1.3.3-sftp-fxp-clear-cache-bug3448.patch
+
 	use case && __prepare_module mod_case
 	if use clamav ; then
 		mv "${WORKDIR}"/mod_clamav-${CLAMAV_VER}/mod_clamav.{c,h} contrib
