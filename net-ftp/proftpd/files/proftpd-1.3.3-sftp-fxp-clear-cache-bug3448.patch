@@ -1,0 +1,32 @@
+Index: contrib/mod_sftp/fxp.c
+===================================================================
+RCS file: /cvsroot/proftp/proftpd/contrib/mod_sftp/fxp.c,v
+retrieving revision 1.91
+retrieving revision 1.92
+diff -u -r1.91 -r1.92
+--- contrib/mod_sftp/fxp.c	12 Apr 2010 00:14:46 -0000	1.91
++++ contrib/mod_sftp/fxp.c	20 Apr 2010 01:09:03 -0000	1.92
+@@ -4620,6 +4620,7 @@
+   }
+   cmd->argv[0] = cmd_name;
+ 
++  pr_fs_clear_cache();
+   if (pr_fsio_fstat(fxh->fh, &st) < 0) {
+     uint32_t status_code;
+     const char *reason;
+@@ -5247,6 +5248,7 @@
+   }
+   cmd->argv[0] = cmd_name;
+ 
++  pr_fs_clear_cache();
+   if (pr_fsio_lstat(path, &st) < 0) {
+     uint32_t status_code;
+     const char *reason;
+@@ -7900,6 +7902,7 @@
+   }
+   cmd->argv[0] = cmd_name;
+ 
++  pr_fs_clear_cache();
+   if (pr_fsio_stat(path, &st) < 0) {
+     uint32_t status_code;
+     const char *reason;

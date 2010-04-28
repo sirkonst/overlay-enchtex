@@ -1,0 +1,31 @@
+Index: contrib/mod_sftp/fxp.c
+===================================================================
+RCS file: /cvsroot/proftp/proftpd/contrib/mod_sftp/fxp.c,v
+retrieving revision 1.92
+diff -u -r1.92 fxp.c
+--- contrib/mod_sftp/fxp.c	20 Apr 2010 01:09:03 -0000	1.92
++++ contrib/mod_sftp/fxp.c	27 Apr 2010 18:36:27 -0000
+@@ -635,15 +635,19 @@
+   if (flags & SSH2_FXF_CREAT) {
+     res |= O_CREAT;
+ 
+-    if (flags & SSH2_FXF_TRUNC) {
+-      res |= O_TRUNC;
+-    }
+-
++    /* Since the behavior of open(2) if O_EXCL is set and O_CREAT is not
++     * set, we avoid that situation, and only check for the FXF_EXCL SSH flag
++     * if the FXF_CREAT flag is set.
++     */
+     if (flags & SSH2_FXF_EXCL) {
+       res |= O_EXCL;
+     }
+   }
+ 
++  if (flags & SSH2_FXF_TRUNC) {
++    res |= O_TRUNC;
++  }
++
+   return res;
+ }
+ 
